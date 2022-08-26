@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FashionStore</string>
+
+    <string name="bottom_menu_text">Menu</string>
+    <string name="bottom_home_text">Home</string>
+    <string name="bottom_bag_text">Bag</string>
+    <string name="bottom_search_text">Search</string>
+    <string name="bottom_favorites_text">Favorites</string>
+
+    <string name="app_web_url">bambinifashion.com</string>
+
+    <string name="banner_btn_text">Shop Now</string>
+
+    <string name="empty_categories_text">Page is empty</string>
+</resources>

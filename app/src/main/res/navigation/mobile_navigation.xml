@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_menu"-->
+<!--        android:name="com.mikyegresl.fashionstore.presentation.features.menu.MenuFragment"-->
+<!--        android:label="@string/bottom_menu_text"-->
+<!--        tools:layout="@layout/fragment_menu" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_home"-->
+<!--        android:name="com.mikyegresl.fashionstore.presentation.features.home.HomeFragment"-->
+<!--        android:label="@string/bottom_home_text"-->
+<!--        tools:layout="@layout/fragment_home" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_bag"-->
+<!--        android:name="com.mikyegresl.fashionstore.presentation.features.bag.BagFragment"-->
+<!--        android:label="@string/bottom_bag_text"-->
+<!--        tools:layout="@layout/fragment_bag" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_search"-->
+<!--        android:name="com.mikyegresl.fashionstore.presentation.features.search.SearchFragment"-->
+<!--        android:label="@string/bottom_search_text"-->
+<!--        tools:layout="@layout/fragment_search" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_favorites"-->
+<!--        android:name="com.mikyegresl.fashionstore.presentation.features.favorites.FavoritesFragment"-->
+<!--        android:label="@string/bottom_favorites_text"-->
+<!--        tools:layout="@layout/fragment_favorites" />-->
+</navigation>
