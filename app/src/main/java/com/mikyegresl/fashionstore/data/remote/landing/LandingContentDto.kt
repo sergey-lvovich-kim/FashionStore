@@ -10,7 +10,10 @@ data class LandingContentDto(
 )
 
 enum class LandingContentType(val value: String) {
+    @SerializedName("banner")
     BANNER("banner"),
+    @SerializedName("quadro")
     QUADRO("quadro"),
+    @SerializedName("featured-categories")
     FEATURED("featured-categories")
 }

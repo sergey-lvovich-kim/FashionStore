@@ -16,7 +16,7 @@ import com.mikyegresl.fashionstore.data.local.promotions.PromotionEntity
         CategoryEntity::class,
         PromotionEntity::class
                ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class FashionStoreDb: RoomDatabase() {

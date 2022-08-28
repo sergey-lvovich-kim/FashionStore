@@ -46,7 +46,7 @@ fun List<Category>.toCategoryEntities(): List<CategoryEntity> =
             link = it.link,
             backgroundColor = it.backgroundColor,
             image = it.image,
-            isQuadro = it.isQuadro
+            isHeader = it.isHeader
         )
     }
 
@@ -57,7 +57,7 @@ fun List<CategoryEntity>.toCategories(): List<Category> =
             link = it.link,
             backgroundColor = it.backgroundColor,
             image = it.image,
-            isQuadro = it.isQuadro
+            isHeader = it.isHeader
         )
     }
 
@@ -81,19 +81,27 @@ fun LandingDto.toLanding(): Landing {
                 isHeadingHidden = landingContent.data.caption?.heading?.isHidden ?: false,
                 isInverted = landingContent.data.caption?.isInverted ?: false,
             )
-        }
-        else {
-            landingContent.data.categories?.forEach { category ->
-                categories.add(
-                    Category(
-                        title = category.title ?: EMPTY_STRING,
-                        link = category.linkUrl ?: EMPTY_STRING,
-                        backgroundColor = category.backgroundColor ?: EMPTY_STRING,
-                        image = category.image?.src ?: EMPTY_STRING,
-                        isQuadro = landingContent.name == LandingContentType.QUADRO
-                    )
+        } else if (landingContent.name == LandingContentType.QUADRO) {
+            categories.add(
+                Category(
+                    title = landingContent.data.title ?: EMPTY_STRING,
+                    link = landingContent.data.linkUrl ?: EMPTY_STRING,
+                    backgroundColor = EMPTY_STRING,
+                    image = landingContent.data.image?.src ?: EMPTY_STRING,
+                    isHeader = true
                 )
-            }
+            )
+        }
+        landingContent.data.categories?.forEach { category ->
+            categories.add(
+                Category(
+                    title = category.title ?: EMPTY_STRING,
+                    link = category.linkUrl ?: EMPTY_STRING,
+                    backgroundColor = category.backgroundColor ?: EMPTY_STRING,
+                    image = category.image?.src ?: EMPTY_STRING,
+                    isHeader = false
+                )
+            )
         }
     }
     return Landing(

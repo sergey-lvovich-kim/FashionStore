@@ -2,6 +2,7 @@ package com.mikyegresl.fashionstore.presentation.features.home.landing
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -11,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.mikyegresl.fashionstore.R
 import com.mikyegresl.fashionstore.domain.landing.Category
 import com.mikyegresl.fashionstore.presentation.ui.Padding
@@ -24,27 +24,25 @@ fun CategoryList(
         EmptyList()
     }
     else {
-        //todo: implement adaptive grid for 1 & 2 column layouts
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 256.dp),
+            columns = GridCells.Fixed(2),
             modifier = Modifier
                 .fillMaxWidth(),
-            contentPadding = PaddingValues(horizontal = 8.dp),
+            contentPadding = PaddingValues(horizontal = Padding.Small),
             verticalArrangement = Arrangement.Center,
             horizontalArrangement = Arrangement.Center,
         ) {
             itemsIndexed(
-                items = categoryList
-            ) { index, category ->
-                if (category.isQuadro) {
-                    CategoryHeaderContent(
-                        category = category
-                    )
+                items = categoryList,
+                span = { _, item ->
+                    val spanCount = if (item.isHeader) 2 else 1
+                    GridItemSpan(spanCount)
                 }
-                else {
-                    CategoryItemContent(
-                        category = category
-                    )
+            ) { index, category ->
+                if (category.isHeader) {
+                    CategoryHeaderContent(category = category)
+                } else {
+                    CategoryItemContent(category = category)
                 }
                 if (index != categoryList.lastIndex) {
                     Spacer(modifier = Modifier.padding(bottom = Padding.Medium))

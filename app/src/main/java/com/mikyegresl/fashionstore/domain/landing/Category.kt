@@ -5,5 +5,5 @@ data class Category(
     val link: String,
     val backgroundColor: String,
     val image: String,
-    val isQuadro: Boolean = false
+    val isHeader: Boolean = false
 )

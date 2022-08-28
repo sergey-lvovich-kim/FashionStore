@@ -19,7 +19,7 @@ class LandingInteractor (
                 if (landing.banner != null) {
                     landingRepository.saveBanner(landing.banner.toBannerEntity())
                 }
-                if (!landing.categories.isNullOrEmpty()) {
+                if (landing.categories.isNotEmpty()) {
                     landingRepository.saveCategories(landing.categories.toCategoryEntities())
                 }
                 Resource.Success(data = landing)

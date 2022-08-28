@@ -17,6 +17,6 @@ data class CategoryEntity(
     val backgroundColor: String,
     @ColumnInfo(name = "image")
     val image: String,
-    @ColumnInfo(name = "isQuadro")
-    val isQuadro: Boolean = false
+    @ColumnInfo(name = "isHeader")
+    val isHeader: Boolean = false
 )
