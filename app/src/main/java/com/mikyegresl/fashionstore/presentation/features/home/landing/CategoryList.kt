@@ -26,7 +26,7 @@ fun CategoryList(
     else {
         //todo: implement adaptive grid for 1 & 2 column layouts
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Adaptive(minSize = 256.dp),
             modifier = Modifier
                 .fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 8.dp),

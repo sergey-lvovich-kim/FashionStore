@@ -22,72 +22,55 @@ fun CategoryItemContent(
     category: Category
 ) {
     val isFeatured = category.backgroundColor.isEmpty()
-    //2 columns
+    var boxModifier = Modifier
+        .fillMaxSize()
+        .padding(horizontal = Padding.Small)
+        .padding(top = Padding.Tiny, bottom = Padding.Medium)
+        .clip(RoundedCornerShape(corner = CornerSize(Padding.SmallLess)))
+    var imageModifier = Modifier
+        .clip(RoundedCornerShape(corner = CornerSize(Padding.SmallLess)))
+    val textModifier = Modifier
+        .padding(horizontal = Padding.Medium)
+        .padding(top = Padding.Small, bottom = Padding.Large)
+
     if (isFeatured) {
-        FeaturedCategory(category = category)
+        imageModifier = imageModifier
+            .fillMaxHeight()
+    } else {
+        boxModifier = boxModifier
+            .background(Color(android.graphics.Color.parseColor(category.backgroundColor)))
+        imageModifier
+            .padding(horizontal = Padding.Large)
+            .padding(top = Padding.Huge, bottom = Padding.Large)
+            .wrapContentSize()
     }
-    else {
-        QuadroCategory(category = category)
-    }
-
+    CategoryItem(
+        modifier = boxModifier,
+        imageModifier = imageModifier,
+        textModifier = textModifier,
+        category = category
+    )
 }
 
 @Composable
-fun QuadroCategory(category: Category) {
+fun CategoryItem(
+    modifier: Modifier = Modifier,
+    imageModifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier,
+    category: Category
+) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = Padding.Small)
-            .padding(top = Padding.Tiny, bottom = Padding.Medium)
-            .clip(RoundedCornerShape(corner = CornerSize(Padding.SmallLess)))
-            .background(Color(android.graphics.Color.parseColor(category.backgroundColor))),
+        modifier = modifier
     ) {
         CoilImage(
             imageModel = category.image,
-            modifier = Modifier
-                .clip(RoundedCornerShape(corner = CornerSize(Padding.SmallLess)))
-                .padding(horizontal = Padding.Large)
-                .padding(top = Padding.Huge, bottom = Padding.Large)
-                .wrapContentSize(),
+            modifier = imageModifier,
             contentScale = ContentScale.Crop,
             loading = { },
             failure = { }
         )
         Text(
-            modifier = Modifier
-                .padding(horizontal = Padding.Medium)
-                .padding(top = Padding.Small, bottom = Padding.Large),
-            text = category.title.uppercase(),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center,
-            color = Color.Black,
-        )
-    }
-}
-
-@Composable
-fun FeaturedCategory(category: Category) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = Padding.Small)
-            .padding(top = Padding.Tiny, bottom = Padding.Medium)
-            .clip(RoundedCornerShape(corner = CornerSize(Padding.SmallLess)))
-    ) {
-        CoilImage(
-            imageModel = category.image,
-            modifier = Modifier
-                .clip(RoundedCornerShape(corner = CornerSize(Padding.SmallLess)))
-                .fillMaxHeight(),
-            contentScale = ContentScale.Crop,
-            loading = { },
-            failure = { }
-        )
-        Text(
-            modifier = Modifier
-                .padding(horizontal = Padding.Medium)
-                .padding(top = Padding.Small, bottom = Padding.Large),
+            modifier = textModifier,
             text = category.title.uppercase(),
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
