@@ -42,12 +42,6 @@ class MainActivity : StateActivity<HomeState>() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        viewModel.clearJobs()
-    }
-
     @Composable
     fun MainScreen() {
         val navController = rememberNavController()

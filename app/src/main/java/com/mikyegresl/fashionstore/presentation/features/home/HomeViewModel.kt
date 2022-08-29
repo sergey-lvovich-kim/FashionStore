@@ -1,6 +1,5 @@
 package com.mikyegresl.fashionstore.presentation.features.home
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.mikyegresl.fashionstore.Constants
 import com.mikyegresl.fashionstore.domain.landing.ILandingInteractor

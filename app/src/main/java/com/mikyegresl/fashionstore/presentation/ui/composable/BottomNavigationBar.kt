@@ -16,7 +16,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.mikyegresl.fashionstore.R
 import com.mikyegresl.fashionstore.presentation.ui.BottomNavItem
 
-//todo: retain current state
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
