@@ -3,7 +3,7 @@ package com.mikyegresl.fashionstore.data.remote.landing
 import com.google.gson.annotations.SerializedName
 
 data class CaptionDto(
-    @SerializedName("video")
+    @SerializedName("cta")
     val cta: CtaDto? = null,
     @SerializedName("description")
     val description: String? = null,

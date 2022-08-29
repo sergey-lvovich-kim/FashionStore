@@ -7,7 +7,6 @@ import androidx.compose.ui.unit.dp
 import com.mikyegresl.fashionstore.R
 
 object Padding {
-
     val Empty: Dp
         @Composable get() = 0.dp
 
@@ -34,4 +33,7 @@ object Padding {
 
     val Superb: Dp
         @Composable get() = dimensionResource(R.dimen.space_superb)
+
+    val FeatureCategoryImage: Dp
+        @Composable get() = dimensionResource(id = R.dimen.featured_category_image)
 }

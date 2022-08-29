@@ -1,5 +1,7 @@
 package com.mikyegresl.fashionstore.domain.landing
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.Alignment
 import com.mikyegresl.fashionstore.Constants
 
 data class Banner(
@@ -11,8 +13,8 @@ data class Banner(
     val size: BannerSize = BannerSize.LARGE,
     val backgroundColor: String = Constants.EMPTY_STRING,
     val textColor: String = Constants.EMPTY_STRING,
-    val xPosition: HorizontalPosition = HorizontalPosition.CENTER,
-    val yPosition: VerticalPosition = VerticalPosition.BOTTOM,
+    val xPosition: Alignment.Horizontal = Alignment.CenterHorizontally,
+    val yPosition: Arrangement.Vertical = Arrangement.Bottom,
     val isHeadingHidden: Boolean = false,
     val isInverted: Boolean = false
 )
@@ -21,15 +23,4 @@ enum class BannerSize(val value: String) {
     LARGE("large"),
     MEDIUM("medium"),
     SMALL("small")
-}
-
-enum class HorizontalPosition(val value: String) {
-    START("start"),
-    CENTER("center"),
-    END("end")
-}
-
-enum class VerticalPosition(val value: String) {
-    TOP("top"),
-    BOTTOM("bottom")
 }

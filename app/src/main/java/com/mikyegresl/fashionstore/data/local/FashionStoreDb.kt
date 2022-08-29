@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.mikyegresl.fashionstore.data.local.landing.BannerEntity
 import com.mikyegresl.fashionstore.data.local.landing.CategoryEntity
 import com.mikyegresl.fashionstore.data.local.landing.LandingDao
 import com.mikyegresl.fashionstore.data.local.promotions.PromotionDao
 import com.mikyegresl.fashionstore.data.local.promotions.PromotionEntity
+import com.mikyegresl.fashionstore.domain.converters.XPositionConverter
 
 @Database(
     entities = [
@@ -16,8 +18,11 @@ import com.mikyegresl.fashionstore.data.local.promotions.PromotionEntity
         CategoryEntity::class,
         PromotionEntity::class
                ],
-    version = 2,
+    version = 4,
     exportSchema = false
+)
+@TypeConverters(
+    XPositionConverter::class
 )
 abstract class FashionStoreDb: RoomDatabase() {
     abstract fun landingDao(): LandingDao

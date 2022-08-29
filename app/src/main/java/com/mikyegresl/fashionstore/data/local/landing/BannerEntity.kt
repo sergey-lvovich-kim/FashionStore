@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.mikyegresl.fashionstore.Constants
+import com.mikyegresl.fashionstore.data.remote.landing.HorizontalPosition
+import com.mikyegresl.fashionstore.data.remote.landing.VerticalPosition
 import com.mikyegresl.fashionstore.domain.landing.BannerSize
-import com.mikyegresl.fashionstore.domain.landing.HorizontalPosition
-import com.mikyegresl.fashionstore.domain.landing.VerticalPosition
 
 @Entity(tableName = "Banner")
 data class BannerEntity(

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,10 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mikyegresl.fashionstore.domain.landing.Category
 import com.mikyegresl.fashionstore.presentation.ui.Padding
+import com.mikyegresl.fashionstore.presentation.ui.composable.FashionStoreProgress
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
@@ -57,7 +56,7 @@ fun CategoryItem(
     Box(
         modifier = if (isFeatured) {
             modifier
-                .size(256.dp)
+                .size(Padding.FeatureCategoryImage)
         } else {
             modifier
                 .background(Color(android.graphics.Color.parseColor(category.backgroundColor)))
@@ -78,10 +77,7 @@ fun CategoryItem(
             } else {
                 ContentScale.Crop
             },
-
-            loading = {
-                CircularProgressIndicator()
-            },
+            loading = { FashionStoreProgress() },
             failure = {
 
             }

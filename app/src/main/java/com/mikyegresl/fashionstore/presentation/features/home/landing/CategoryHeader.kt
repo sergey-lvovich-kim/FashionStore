@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.mikyegresl.fashionstore.domain.landing.Category
 import com.mikyegresl.fashionstore.presentation.ui.Padding
+import com.mikyegresl.fashionstore.presentation.ui.composable.FashionStoreProgress
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
@@ -26,7 +27,7 @@ fun CategoryHeaderContent(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = Padding.Small)
-            .padding(top = Padding.Tiny, bottom = Padding.Medium),
+            .padding(top = Padding.Tiny),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -45,7 +46,7 @@ fun CategoryHeaderContent(
                 .padding(vertical = Padding.Medium),
             imageModel = category.image,
             contentScale = ContentScale.Crop,
-            loading = { },
+            loading = { FashionStoreProgress() },
             failure = { }
         )
     }

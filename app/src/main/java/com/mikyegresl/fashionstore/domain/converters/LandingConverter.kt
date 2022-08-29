@@ -5,7 +5,10 @@ import com.mikyegresl.fashionstore.data.local.landing.BannerEntity
 import com.mikyegresl.fashionstore.data.local.landing.CategoryEntity
 import com.mikyegresl.fashionstore.data.remote.landing.LandingContentType
 import com.mikyegresl.fashionstore.data.remote.landing.LandingDto
-import com.mikyegresl.fashionstore.domain.landing.*
+import com.mikyegresl.fashionstore.domain.landing.Banner
+import com.mikyegresl.fashionstore.domain.landing.BannerSize
+import com.mikyegresl.fashionstore.domain.landing.Category
+import com.mikyegresl.fashionstore.domain.landing.Landing
 
 fun Banner.toBannerEntity(): BannerEntity =
     BannerEntity(
@@ -17,8 +20,8 @@ fun Banner.toBannerEntity(): BannerEntity =
         size = size,
         backgroundColor = backgroundColor,
         textColor = textColor,
-        xPosition = xPosition,
-        yPosition = yPosition,
+        xPosition = XPositionConverter.alignmentToHorizontalPosition(xPosition),
+        yPosition = YPositionConverter.arrangementToVerticalPosition(yPosition),
         isHeadingHidden = isHeadingHidden,
         isInverted = isInverted,
     )
@@ -33,8 +36,8 @@ fun BannerEntity.toBanner(): Banner =
         size = size,
         backgroundColor = backgroundColor,
         textColor = textColor,
-        xPosition = xPosition,
-        yPosition = yPosition,
+        xPosition = XPositionConverter.horizontalPositionToAlignment(xPosition),
+        yPosition = YPositionConverter.verticalPositionToArrangement(yPosition),
         isHeadingHidden = isHeadingHidden,
         isInverted = isInverted,
     )
@@ -76,8 +79,8 @@ fun LandingDto.toLanding(): Landing {
                 size = mapBannerSize(landingContent.data.size),
                 backgroundColor = landingContent.data.caption?.cta?.backgroundColor ?: EMPTY_STRING,
                 textColor = landingContent.data.caption?.cta?.textColor ?: EMPTY_STRING,
-                xPosition = mapHorizontalPosition(landingContent.data.caption?.position?.x),
-                yPosition = mapVerticalPosition(landingContent.data.caption?.position?.y),
+                xPosition = XPositionConverter.horizontalPositionToAlignment(landingContent.data.caption?.position?.x),
+                yPosition = YPositionConverter.verticalPositionToArrangement(landingContent.data.caption?.position?.y),
                 isHeadingHidden = landingContent.data.caption?.heading?.isHidden ?: false,
                 isInverted = landingContent.data.caption?.isInverted ?: false,
             )
@@ -119,22 +122,3 @@ private fun mapBannerSize(size: String?): BannerSize =
             else -> null
         }
     } ?: BannerSize.LARGE
-
-private fun mapHorizontalPosition(x: String?): HorizontalPosition =
-    x?.let {
-        when (it) {
-            "start" -> HorizontalPosition.START
-            "center" -> HorizontalPosition.CENTER
-            "end" -> HorizontalPosition.END
-            else -> null
-        }
-    } ?: HorizontalPosition.CENTER
-
-private fun mapVerticalPosition(y: String?): VerticalPosition =
-    y?.let {
-        when (y) {
-            "top" -> VerticalPosition.TOP
-            "bottom" -> VerticalPosition.BOTTOM
-            else -> null
-        }
-    } ?: VerticalPosition.BOTTOM
