@@ -37,8 +37,15 @@ class MainActivity : StateActivity<HomeState>() {
                 MainScreen()
             }
         }
+        if (savedInstanceState == null) {
+            viewModel.initialize()
+        }
+    }
 
-        viewModel.initialize()
+    override fun onDestroy() {
+        super.onDestroy()
+
+        viewModel.clearJobs()
     }
 
     @Composable

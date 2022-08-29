@@ -1,5 +1,6 @@
 package com.mikyegresl.fashionstore.presentation.features.home
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.mikyegresl.fashionstore.Constants
 import com.mikyegresl.fashionstore.domain.landing.ILandingInteractor
@@ -9,6 +10,8 @@ import com.mikyegresl.fashionstore.domain.utils.Resource
 import com.mikyegresl.fashionstore.presentation.common.IEventBus
 import com.mikyegresl.fashionstore.presentation.common.IIntent
 import com.mikyegresl.fashionstore.presentation.common.StateViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.*
@@ -18,6 +21,9 @@ class HomeViewModel(
     private val promotionInteractor: IPromotionInteractor,
     private val eventBus: IEventBus
 ) : StateViewModel<HomeState>() {
+
+    private var promotions: LinkedList<Promotion>? = null
+    private var changePromotionJob: Job? = null
 
     override val _state: MutableStateFlow<HomeState> = MutableStateFlow(
         HomeState(
@@ -38,6 +44,9 @@ class HomeViewModel(
             HomeIntent.Initialize -> {
                 loadLandingData()
                 loadPromotionData()
+            }
+            HomeIntent.Clear -> {
+                cancelPromotionJob()
             }
         }
     }
@@ -94,7 +103,9 @@ class HomeViewModel(
                 )
                 when (val result = promotionInteractor.getPromotions()) {
                     is Resource.Success -> {
-                        if (result.data.isNullOrEmpty()) {
+                        val promotionList = result.data
+
+                        if (promotionList.isNullOrEmpty()) {
                             updateState(
                                 state.value.copy(
                                     isLoading = false,
@@ -107,11 +118,13 @@ class HomeViewModel(
                             updateState(
                                 state.value.copy(
                                     isLoading = false,
-                                    promotions = result.data,
-                                    currentPromotion = nextPromotionItem(promotions = result.data),
+                                    promotions = promotionList,
+                                    currentPromotion = promotionList.first(),
                                     errorMessage = null
                                 )
                             )
+                            promotions = LinkedList(promotionList)
+                            nextPromotionItem()
                         }
                     }
                     is Resource.Error -> {
@@ -140,15 +153,42 @@ class HomeViewModel(
         )
     }
 
+    private fun nextPromotionItem() {
+        promotions?.let {
+            if (it.isNotEmpty()) {
+                changePromotionJob = viewModelScope.launch {
+                    while (it.size > 0) {
+                        delay(currentState.currentPromotion?.duration?.toLong() ?: 1000L)
+                        val nextPromotion = it.pollLast()
+                        it.addFirst(nextPromotion)
+                        updateState(
+                            state.value.copy(
+                                currentPromotion = nextPromotion
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun cancelPromotionJob() {
+        changePromotionJob?.let {
+            if (it.isActive) {
+                it.cancel()
+            }
+        }
+    }
+
     fun initialize() {
         viewModelScope.launch {
             eventBus.send(intent = HomeIntent.Initialize)
         }
     }
 
-    //todo: implement periodic Job
-    private fun nextPromotionItem(promotions: List<Promotion>): Promotion? {
-        val promotionList = LinkedList(promotions)
-        return promotionList.poll()
+    fun clearJobs() {
+        viewModelScope.launch {
+            eventBus.send(intent = HomeIntent.Clear)
+        }
     }
 }
