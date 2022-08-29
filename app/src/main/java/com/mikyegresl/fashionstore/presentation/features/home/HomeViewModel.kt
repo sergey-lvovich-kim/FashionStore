@@ -9,7 +9,6 @@ import com.mikyegresl.fashionstore.domain.utils.Resource
 import com.mikyegresl.fashionstore.presentation.common.IEventBus
 import com.mikyegresl.fashionstore.presentation.common.IIntent
 import com.mikyegresl.fashionstore.presentation.common.StateViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.*

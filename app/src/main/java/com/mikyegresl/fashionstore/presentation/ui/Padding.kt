@@ -31,4 +31,7 @@ object Padding {
 
     val Huge: Dp
         @Composable get() = dimensionResource(R.dimen.space_huge)
+
+    val Superb: Dp
+        @Composable get() = dimensionResource(R.dimen.space_superb)
 }

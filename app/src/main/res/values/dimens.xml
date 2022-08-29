@@ -15,4 +15,5 @@
     <dimen name="space_medium">16dp</dimen>
     <dimen name="space_large">24dp</dimen>
     <dimen name="space_huge">32dp</dimen>
+    <dimen name="space_superb">72dp</dimen>
 </resources>
