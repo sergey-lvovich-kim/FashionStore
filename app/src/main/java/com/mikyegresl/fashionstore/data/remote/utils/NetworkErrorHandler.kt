@@ -12,9 +12,15 @@ object NetworkErrorHandler {
             action()
         } catch (e: Throwable) {
             if (e is HttpException || e is IOException) {
-                onNetworkException.invoke(e)
+                try {
+                    onNetworkException.invoke(e)
+                } catch (ex: Exception) {
+                    e.printStackTrace()
+                    throw e
+                }
+            } else {
+                e.printStackTrace()
+                throw e
             }
-            e.printStackTrace()
-            throw e
         }
 }

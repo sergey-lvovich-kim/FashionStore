@@ -2,9 +2,10 @@ package com.mikyegresl.fashionstore.data.local.landing
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Category")
+@Entity(tableName = "Category", indices = [Index(value = ["title", "link"], unique = true)])
 data class CategoryEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

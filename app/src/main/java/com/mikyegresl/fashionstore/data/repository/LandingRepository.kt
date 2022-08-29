@@ -20,9 +20,7 @@ class LandingRepository(
     override suspend fun getCategories(): List<CategoryEntity> =
         localCache.getCategories()
 
-    override suspend fun saveBanner(banner: BannerEntity) =
-        localCache.insertBanner(banner = banner)
+    override suspend fun saveBanner(banner: BannerEntity) =localCache.insertBanner(banner = banner)
 
-    override suspend fun saveCategories(categories: List<CategoryEntity>) =
-        localCache.insertCategories(categories = categories)
+    override suspend fun saveCategories(categories: List<CategoryEntity>) =localCache.insertCategories(categories = categories)
 }

@@ -2,9 +2,10 @@ package com.mikyegresl.fashionstore.data.local.promotions
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Promotion")
+@Entity(tableName = "Promotion", indices = [Index(value = ["content"], unique = true)])
 data class PromotionEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

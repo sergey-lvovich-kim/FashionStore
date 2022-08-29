@@ -2,13 +2,14 @@ package com.mikyegresl.fashionstore.data.local.landing
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.mikyegresl.fashionstore.Constants
 import com.mikyegresl.fashionstore.data.remote.landing.HorizontalPosition
 import com.mikyegresl.fashionstore.data.remote.landing.VerticalPosition
 import com.mikyegresl.fashionstore.domain.landing.BannerSize
 
-@Entity(tableName = "Banner")
+@Entity(tableName = "Banner", indices = [Index(value = ["heading", "link"], unique = true)])
 data class BannerEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

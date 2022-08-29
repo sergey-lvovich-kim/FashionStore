@@ -6,6 +6,8 @@ import com.mikyegresl.fashionstore.data.repository.IPromotionRepository
 import com.mikyegresl.fashionstore.domain.converters.toPromotionEntities
 import com.mikyegresl.fashionstore.domain.converters.toPromotions
 import com.mikyegresl.fashionstore.domain.utils.Resource
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class PromotionInteractor(
     private val promotionRepository: IPromotionRepository
@@ -15,7 +17,11 @@ class PromotionInteractor(
         NetworkErrorHandler.handleError(
             action = {
                 val promotions = promotionRepository.loadPromotions().toPromotionEntities()
-                promotionRepository.savePromotions(promotions = promotions)
+                coroutineScope {
+                    launch {
+                        promotionRepository.savePromotions(promotions = promotions)
+                    }
+                }
                 Resource.Success(
                     data = promotions.toPromotions()
                 )

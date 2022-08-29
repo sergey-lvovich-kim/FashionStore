@@ -5,6 +5,9 @@ import com.mikyegresl.fashionstore.data.remote.utils.NetworkErrorHandler
 import com.mikyegresl.fashionstore.data.repository.ILandingRepository
 import com.mikyegresl.fashionstore.domain.converters.*
 import com.mikyegresl.fashionstore.domain.utils.Resource
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class LandingInteractor (
     private val landingRepository: ILandingRepository
@@ -15,25 +18,38 @@ class LandingInteractor (
             action = {
                 val landing = landingRepository.loadLanding().toLanding()
 
-                //todo: do these async
                 if (landing.banner != null) {
-                    landingRepository.saveBanner(landing.banner.toBannerEntity())
+                    coroutineScope {
+                        launch {
+                            landingRepository.saveBanner(landing.banner.toBannerEntity())
+                        }
+                    }
                 }
                 if (landing.categories.isNotEmpty()) {
-                    landingRepository.saveCategories(landing.categories.toCategoryEntities())
+                    coroutineScope {
+                        launch {
+                            landingRepository.saveCategories(landing.categories.toCategoryEntities())
+                        }
+                    }
                 }
                 Resource.Success(data = landing)
             },
             onNetworkException = {
-                //todo: do these async
-                val bannerEntity = landingRepository.getBanner()
-                val categoryEntities = landingRepository.getCategories()
-
+                val deferredBanner = coroutineScope {
+                    async {
+                        landingRepository.getBanner()
+                    }
+                }
+                val deferredCategories = coroutineScope {
+                    async {
+                        landingRepository.getCategories()
+                    }
+                }
                 try {
                     Resource.Success(
                         data = Landing(
-                            banner = bannerEntity.toBanner(),
-                            categories = categoryEntities.toCategories()
+                            banner = deferredBanner.await().toBanner(),
+                            categories = deferredCategories.await().toCategories()
                         )
                     )
                 } catch (e: Exception) {

@@ -18,7 +18,7 @@ import com.mikyegresl.fashionstore.domain.converters.XPositionConverter
         CategoryEntity::class,
         PromotionEntity::class
                ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(
